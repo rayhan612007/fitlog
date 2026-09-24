@@ -1,10 +1,23 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import AllCard from "./AllCard";
+import { Icard } from "../type/cardtype";
 
-const Workoutpage = () => {
+const Cardfetching = async (): Promise<Icard[]> => {
+  const data = await fetch("https://api.abcz.workers.dev/api/fitlog");
+  if (!data.ok) {
+    throw new Error("Failed to fetch workout data");
+  }
+  const response:Icard[] = await data.json();
+  return response;
+};
+
+const Workoutpage = async () => {
+  const carddata = await Cardfetching();
   return (
     <section className="bg-[#0b0c0e] px-4 py-5 sm:px-6 lg:px-8">
+      {/* Banner  */}
       <div
         className="
           mx-auto
@@ -23,7 +36,7 @@ const Workoutpage = () => {
           md:flex-row
           md:justify-between
           md:px-12
-          lg:min-h-[310px]
+          lg:min-h-77.5
           lg:px-10
         "
       >
@@ -69,8 +82,7 @@ const Workoutpage = () => {
               
             "
           >
-            Train With Intent. Log
-            Every Set.
+            Train With Intent. Log Every Set.
           </h1>
 
           {/* Description */}
@@ -136,15 +148,26 @@ const Workoutpage = () => {
             priority
             className="
               h-auto
-              w-[220px]
+              w-55
               object-contain
-              sm:w-[260px]
-              md:w-[280px]
-              lg:w-[330px]
-              xl:w-[380px]
+              sm:w-65
+              md:w-70
+              lg:w-82.5
+              xl:w-95
             "
           />
         </div>
+      </div>
+      {/* title & subtitle */}
+      <div>
+        <h2 className="uppercase text-white text-3xl">The library</h2>
+        <p>Twelve lifts covering every major muscle group.</p>
+      </div>
+      {/* card section */}
+      <div>
+        {carddata.map((card: Icard, ind: number) => (
+          <AllCard key={ind} card={card} />
+        ))}
       </div>
     </section>
   );
