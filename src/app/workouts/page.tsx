@@ -9,20 +9,20 @@ const Cardfetching = async (): Promise<Icard[]> => {
   if (!data.ok) {
     throw new Error("Failed to fetch workout data");
   }
-  const response:Icard[] = await data.json();
+  const response: Icard[] = await data.json();
   return response;
 };
 
 const Workoutpage = async () => {
   const carddata = await Cardfetching();
   return (
-    <section className="bg-[#0b0c0e] px-4 py-5 sm:px-6 lg:px-8">
+    <section className="bg-[#0b0c0e] px-4 py-5 sm:px-6 lg:px-8 container">
       {/* Banner  */}
       <div
         className="
           mx-auto
           flex
-          max-w-7xl
+          container
           flex-col
           items-center
           overflow-hidden
@@ -158,16 +158,23 @@ const Workoutpage = async () => {
           />
         </div>
       </div>
-      {/* title & subtitle */}
-      <div>
-        <h2 className="uppercase text-white text-3xl">The library</h2>
-        <p>Twelve lifts covering every major muscle group.</p>
-      </div>
-      {/* card section */}
-      <div>
-        {carddata.map((card: Icard, ind: number) => (
-          <AllCard key={ind} card={card} />
-        ))}
+      <div className="bg-[#0b0e14] min-h-screen py-10 px-4">
+        {/* Title & Subtitle */}
+        <div className="container mx-auto mb-8">
+          <h2 className="uppercase text-white text-2xl font-black tracking-wider">
+            The library
+          </h2>
+          <p className="text-gray-400 text-sm mt-1">
+            Twelve lifts covering every major muscle group.
+          </p>
+        </div>
+
+        {/* Card Section Grid */}
+        <div className="mx-auto grid w-full grid-cols-1 gap-10 px-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+          {carddata.map((card) => (
+            <AllCard key={card.id} card={card} />
+          ))}
+        </div>
       </div>
     </section>
   );
