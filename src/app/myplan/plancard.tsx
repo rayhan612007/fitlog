@@ -1,7 +1,6 @@
-import { RxCross2 } from "react-icons/rx";
 import Image from "next/image";
 import Link from "next/link";
-import { FiClock, FiStar, FiCheck, FiX } from "react-icons/fi";
+import { FiClock, FiStar} from "react-icons/fi";
 import { Icard } from "../type/cardtype";
 import Removecard from "../removedcard/Removecard";
 import Markasdone from "../removedcard/Markasdone";
@@ -13,8 +12,7 @@ interface PlanCardProps {
 }
 
 export default function PlanCard({
-  card,
-  onMarkDone,
+  card
 }: PlanCardProps) {
   return (
     <div className="w-full rounded-2xl border border-white/5 bg-[#161922] p-4 shadow-xl sm:p-5">
@@ -71,7 +69,7 @@ export default function PlanCard({
           {/* View Details */}
           <Link
             href={`/card/${card.id}`}
-            className="btn btn-sm flex md:flex-1 lg:flex-1 items-center justify-center rounded-xl border border-white/10 bg-[#1f2430] px-3 text-xs font-medium normal-case text-white hover:bg-[#2a303c] sm:flex-none px-2 lg:px-4 md:px-4 sm:px-4"
+            className="btn btn-sm flex md:flex-1 lg:flex-1 items-center justify-center rounded-xl border border-white/10 bg-[#1f2430] px-3 text-xs font-medium normal-case text-white hover:bg-[#2a303c] sm:flex-none lg:px-4 md:px-4 sm:px-4"
           >
             View Details
           </Link>

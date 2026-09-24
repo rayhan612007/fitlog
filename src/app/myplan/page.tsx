@@ -2,8 +2,6 @@
 import SavedCard from "./SavedCard";
 import React, { useContext, useState } from "react";
 
-import { FiChevronDown } from "react-icons/fi";
-
 import { ExerciseContext } from "../Context/ExerciseContext";
 import { Icard } from "../type/cardtype";
 
@@ -11,12 +9,33 @@ import Fallback from "./planfallback";
 import PlanCard from "./plancard";
 
 const Planpage = () => {
-  const [activeTab, setActiveTab] = useState<"plan" | "saved">("plan");
-
+  
   const { planexercise, saveexercise } = useContext(ExerciseContext) as {
     planexercise: Icard[];
     saveexercise: Icard[];
   };
+
+
+  const [activeTab, setActiveTab] = useState<"plan" | "saved">("plan");
+
+  const [sortBy, setSortBy] = useState<"Duration" | "Calories" | "Rating">("Duration");
+
+  const sortcards = (card:Icard[]) => {
+    const sortedCards = [...card];
+
+    if(sortBy === "Duration"){
+      sortedCards.sort((a,b) => b.duration - a.duration);
+    }else if(sortBy === "Calories"){
+      sortedCards.sort((a,b) => b.caloriesBurned - a.caloriesBurned);
+    }
+    if(sortBy === "Rating"){
+      sortedCards.sort((a,b) => b.rating - a.rating);
+    }
+    return sortedCards;
+  }
+  const sortedPlanCards = sortcards(planexercise);
+  const sortedsavedCards = sortcards(saveexercise);
+
 
   const totalMinutes = (minutes: Icard[]) =>
     minutes.reduce(
@@ -119,36 +138,18 @@ const Planpage = () => {
           </div>
 
           {/* Sort Dropdown */}
-          <div className="flex items-center gap-2 text-sm text-gray-400">
+          <div className="flex flex-col md:flex-row items-center w-auto gap-2 whitespace-nowrap text-md text-gray-400">
             <span>Sort By</span>
 
-            <div className="dropdown dropdown-end">
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn flex items-center gap-2 rounded-xl border border-white/10 bg-[#161922] px-4 py-2 text-xs font-medium normal-case text-white hover:bg-[#1f2430]"
-              >
-                Duration
-                <FiChevronDown />
-              </div>
-
-              <ul
-                tabIndex={0}
-                className="menu dropdown-content z-[1] mt-2 w-40 rounded-xl border border-white/10 bg-[#161922] p-2 text-white shadow"
-              >
-                <li>
-                  <button>Duration</button>
-                </li>
-
-                <li>
-                  <button>Calories</button>
-                </li>
-
-                <li>
-                  <button>Rating</button>
-                </li>
-              </ul>
-            </div>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as "Duration" | "Calories" | "Rating")}
+              className="select rounded-xl border w-80 border-white/10 bg-[#161922] px-4 text-md font-medium text-white outline-none hover:bg-[#1f2430]"
+            >
+              <option value="Duration">Duration</option>
+              <option value="Calories">Calories</option>
+              <option value="Rating">Rating</option>
+            </select>
           </div>
         </div>
 
@@ -159,7 +160,7 @@ const Planpage = () => {
               <Fallback />
             ) : (
               <div className="grid grid-cols-1 gap-5">
-                {planexercise.map((card: Icard) => (
+                {sortedPlanCards.map((card: Icard) => (
                   <PlanCard key={card.id} card={card} />
                 ))}
               </div>
@@ -174,7 +175,7 @@ const Planpage = () => {
               <Fallback />
             ) : (
               <div className="grid grid-cols-1 gap-5">
-                {saveexercise.map((exercise: Icard) => (
+                {sortedsavedCards.map((exercise: Icard) => (
                   <SavedCard key={exercise.id} card={exercise} />
                 ))}{" "}
               </div>
