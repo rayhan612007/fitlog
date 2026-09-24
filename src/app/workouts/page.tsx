@@ -1,8 +1,9 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import AllCard from "./AllCard";
 import { Icard } from "../type/cardtype";
+import Card from "./card";
+
 
 const Cardfetching = async (): Promise<Icard[]> => {
   const data = await fetch("https://api.abcz.workers.dev/api/fitlog");
@@ -16,7 +17,7 @@ const Cardfetching = async (): Promise<Icard[]> => {
 const Workoutpage = async () => {
   const carddata = await Cardfetching();
   return (
-    <section className="bg-[#0b0c0e] px-4 py-5 sm:px-6 lg:px-8 container">
+    <section className="px-4 py-5 sm:px-6 lg:px-8 ">
       {/* Banner  */}
       <div
         className="
@@ -36,7 +37,7 @@ const Workoutpage = async () => {
           md:flex-row
           md:justify-between
           md:px-12
-          lg:min-h-77.5
+          lg:min-h-150
           lg:px-10
         "
       >
@@ -79,7 +80,6 @@ const Workoutpage = async () => {
               sm:text-5xl
               md:text-4xl
               lg:text-5xl
-              
             "
           >
             Train With Intent. Log Every Set.
@@ -100,9 +100,9 @@ const Workoutpage = async () => {
             into today&apos;s plan, and watch the week&apos;s work add up.
           </p>
 
-          {/* Button */}
+          {/* Button with anchor link (No Icon) */}
           <Link
-            href="/"
+            href="#library"
             className="
               mt-5
               inline-flex
@@ -158,9 +158,10 @@ const Workoutpage = async () => {
           />
         </div>
       </div>
-      <div className="bg-[#0b0e14] min-h-screen py-10 px-4">
+      {/* library section */}
+      <div className="min-h-screen py-10 px-4">
         {/* Title & Subtitle */}
-        <div className="container mx-auto mb-8">
+        <div className="container mb-8 mx-auto">
           <h2 className="uppercase text-white text-2xl font-black tracking-wider">
             The library
           </h2>
@@ -170,9 +171,9 @@ const Workoutpage = async () => {
         </div>
 
         {/* Card Section Grid */}
-        <div className="mx-auto grid w-full grid-cols-1 gap-10 px-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+        <div id="library" className="scroll-mt-25 mx-auto container grid w-full grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           {carddata.map((card) => (
-            <AllCard key={card.id} card={card} />
+            <Card key={card.id} card={card} />
           ))}
         </div>
       </div>

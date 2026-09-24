@@ -10,10 +10,10 @@ const Navbar = () => {
 
   const isWorkouts = pathname === "/";
   const isMyPlan = pathname === "/myplan";
-
+  const isSaved = pathname === "/saved";
 
   return (
-    <div className="navbar min-h-20 bg-[#0d0e10] px-4 sm:px-6 lg:px-8 sticky">
+    <div className="navbar sticky top-0 z-50 min-h-20 bg-[#0d0e10] px-4 sm:px-6 lg:px-8">
       {/* ================= LEFT ================= */}
       <div className="navbar-start">
         {/* Mobile Menu */}
@@ -65,7 +65,7 @@ const Navbar = () => {
                 href="/myplan"
                 className={
                   isMyPlan
-                    ? "rounded-full bg-[#17250c] font-semibold text-[#b6ff00]"
+                    ? "rounded-full bg-[#17250c] font-semibold text-[#ccff00]"
                     : "text-gray-400 hover:text-white"
                 }
               >
@@ -76,9 +76,9 @@ const Navbar = () => {
             {/* Saved */}
             <li>
               <Link
-                href="/saved"
+                href="/myplan"
                 className={
-                  "text-gray-400 hover:text-white"
+                 "text-gray-400 hover:text-white"
                 }
               >
                 Saved
@@ -110,21 +110,11 @@ const Navbar = () => {
           <li>
             <Link
               href="/"
-              className={`
-                rounded-full
-                px-4
-                py-2
-                text-sm
-                transition
-                sm:px-6
-                sm:py-3
-                sm:text-base
-                ${
-                  isWorkouts
-                    ? "bg-[#17250c] font-semibold text-[#b6ff00]"
-                    : "text-gray-400 hover:text-white"
-                }
-              `}
+              className={`rounded-full px-4 py-2 text-sm transition sm:px-6 sm:py-3 sm:text-base ${
+                isWorkouts
+                  ? "bg-[#17250c] font-semibold text-[#b6ff00]"
+                  : "text-gray-400 hover:text-white"
+              }`}
             >
               Workouts
             </Link>
@@ -134,21 +124,11 @@ const Navbar = () => {
           <li>
             <Link
               href="/myplan"
-              className={`
-                rounded-full
-                px-4
-                py-2
-                text-sm
-                transition
-                sm:px-6
-                sm:py-3
-                sm:text-base
-                ${
-                  isMyPlan
-                    ? "bg-[#17250c] font-semibold text-[#b6ff00]"
-                    : "text-gray-400 hover:text-white"
-                }
-              `}
+              className={`rounded-full px-4 py-2 text-sm transition sm:px-6 sm:py-3 sm:text-base ${
+                isMyPlan
+                  ? "bg-[#17250c] font-semibold text-[#b6ff00]"
+                  : "text-gray-400 hover:text-white"
+              }`}
             >
               My Plan
             </Link>
@@ -162,32 +142,11 @@ const Navbar = () => {
           {/* Plan */}
           <Link
             href="/myplan"
-            className={`
-              flex items-center gap-1.5 text-sm transition sm:gap-2 sm:text-base
-              
-            `}
+            className="flex items-center gap-1.5 text-sm text-gray-400 transition hover:text-white sm:gap-2 sm:text-base"
           >
             <span>Plan</span>
 
-            <span
-              className="
-                flex
-                h-6
-                min-w-6
-                items-center
-                justify-center
-                rounded-full
-                bg-[#b6ff00]
-                px-1.5
-                text-xs
-                font-bold
-                text-black
-                sm:h-7
-                sm:min-w-7
-                sm:px-2
-                sm:text-sm
-              "
-            >
+            <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-[#ccff00] px-1.5 text-xs font-bold text-black sm:h-7 sm:min-w-7 sm:px-2 sm:text-sm">
               0
             </span>
           </Link>
@@ -195,31 +154,12 @@ const Navbar = () => {
           {/* Saved */}
           <Link
             href="/myplan"
-            className={`
-              flex items-center gap-1.5 text-sm transition sm:gap-2 sm:text-base
-            "text-gray-400 hover:text-white"
-            `}
+            className={"flex items-center gap-1.5 text-sm transition sm:gap-2 sm:text-base text-gray-400 hover:text-white"
+            }
           >
             <span>Saved</span>
 
-            <span
-              className={`
-                flex
-                h-6
-                min-w-6
-                items-center
-                justify-center
-                rounded-full
-                px-1.5
-                text-xs
-                sm:h-7
-                sm:min-w-7
-                sm:px-2
-                sm:text-sm
-                border border-gray-600
-        
-              `}
-            >
+            <span className="flex h-6 min-w-6 items-center justify-center rounded-full border border-gray-600 px-1.5 text-xs sm:h-7 sm:min-w-7 sm:px-2 sm:text-sm">
               0
             </span>
           </Link>

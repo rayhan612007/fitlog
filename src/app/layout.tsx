@@ -24,10 +24,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       data-theme="dark"
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full container antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col container mx-atuo">
-       <Navbar />
+      <body className="min-h-full flex flex-col">
+       <Navbar/>
 
           <main className="flex-1">
             {children}
