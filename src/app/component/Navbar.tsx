@@ -2,15 +2,17 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 import { usePathname } from "next/navigation";
+import { ExerciseContext } from "../Context/ExerciseContext";
 
 const Navbar = () => {
   const pathname = usePathname();
 
   const isWorkouts = pathname === "/";
   const isMyPlan = pathname === "/myplan";
-  const isSaved = pathname === "/saved";
+  const {planexercise} = useContext(ExerciseContext);
+  const {saveexercise} = useContext(ExerciseContext);
 
   return (
     <div className="navbar sticky top-0 z-50 min-h-20 bg-[#0d0e10] px-4 sm:px-6 lg:px-8">
@@ -147,7 +149,7 @@ const Navbar = () => {
             <span>Plan</span>
 
             <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-[#ccff00] px-1.5 text-xs font-bold text-black sm:h-7 sm:min-w-7 sm:px-2 sm:text-sm">
-              0
+              {planexercise.length}
             </span>
           </Link>
 
@@ -160,7 +162,7 @@ const Navbar = () => {
             <span>Saved</span>
 
             <span className="flex h-6 min-w-6 items-center justify-center rounded-full border border-gray-600 px-1.5 text-xs sm:h-7 sm:min-w-7 sm:px-2 sm:text-sm">
-              0
+              {saveexercise.length}
             </span>
           </Link>
         </div>

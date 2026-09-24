@@ -1,7 +1,9 @@
+import Addtodayplanbtn from "@/app/component/Addtodayplanbtn";
+import Saveforlaterbtn from "@/app/component/Saveforlaterbtn";
 import { Icard } from "@/app/type/cardtype";
 import Image from "next/image";
 import React from "react";
-import { FiCalendar, FiBookmark } from "react-icons/fi";
+
 
 interface Icarddetailsprops {
   params: Promise<{ id: string }>;
@@ -19,7 +21,8 @@ const Cardfetching = async (): Promise<Icard[]> => {
 const Detailspage = async ({ params }: Icarddetailsprops) => {
   const { id } = await params;
   const carddata = await Cardfetching();
-  const card = carddata.find((c: Icard) => String(c.id) === String(id));
+  const card = carddata.find((c: Icard) => String(c.id) === String(id),) as Icard;
+  
 
   // Handle case when workout is not found
   if (!card) {
@@ -40,6 +43,7 @@ const Detailspage = async ({ params }: Icarddetailsprops) => {
             src={card.image}
             alt={card.name}
             fill
+            sizes="fill"
             className="object-cover"
             priority
           />
@@ -118,12 +122,8 @@ const Detailspage = async ({ params }: Icarddetailsprops) => {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 pt-4">
-            <button className="btn bg-[#ccff00] hover:bg-[#b3e600] text-black font-bold border-none flex-1 rounded-xl">
-              <FiCalendar className="text-base" /> Add to today&apos;s plan
-            </button>
-            <button className="btn bg-[#161922] hover:bg-[#1f2430] text-white border border-white/10 flex-1 rounded-xl">
-              <FiBookmark className="text-base" /> Save for later
-            </button>
+            <Addtodayplanbtn card = {card}/>
+            <Saveforlaterbtn card = {card}/>
           </div>
 
         </div>
