@@ -24,9 +24,9 @@ const Planpage = () => {
     const sortedCards = [...card];
 
     if(sortBy === "Duration"){
-      sortedCards.sort((a,b) => b.duration - a.duration);
+      sortedCards.sort((a,b) => a.duration - b.duration);
     }else if(sortBy === "Calories"){
-      sortedCards.sort((a,b) => b.caloriesBurned - a.caloriesBurned);
+      sortedCards.sort((a,b) => a.caloriesBurned - b.caloriesBurned);
     }
     if(sortBy === "Rating"){
       sortedCards.sort((a,b) => b.rating - a.rating);
