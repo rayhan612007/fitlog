@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FiClock, FiStar} from "react-icons/fi";
+import { FiClock, FiStar } from "react-icons/fi";
 import { Icard } from "../type/cardtype";
 import Removecard from "../removedcard/Removecard";
 import Markasdone from "../removedcard/Markasdone";
+import { FaFireFlameCurved } from "react-icons/fa6";
 
 interface PlanCardProps {
   card: Icard;
@@ -11,33 +12,30 @@ interface PlanCardProps {
   onMarkDone?: (id: number) => void;
 }
 
-export default function PlanCard({
-  card
-}: PlanCardProps) {
+export default function PlanCard({ card }: PlanCardProps) {
   return (
     <div className="w-full rounded-2xl border border-white/5 bg-[#161922] p-4 shadow-xl sm:p-5">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-        
         {/* ================= LEFT SIDE ================= */}
         <div className="flex min-w-0 w-full flex-col md:flex-row lg:flex-row md:items-center lg:items-center gap-4 lg:w-auto">
           {/* Image */}
-          <div className="relative md:h-16 lg:h-16 h-35 md:w-24 lg:w-24 w-full shrink-0 overflow-hidden rounded-xl sm:h-20 sm:w-28">
+          <div className="relative md:h-[80px] lg:h-[80px] h-35 md:w-[144px] lg:w-[144px] w-full shrink-0 overflow-hidden rounded-xl sm:h-20 sm:w-28">
             <Image
               src={card.image}
               alt={card.name}
               fill
-              sizes="(max-width: 640px) 96px, 112px"
+              sizes="(max-width: 640px)[ 80px], [144px]"
               className="object-cover"
             />
           </div>
 
           {/* Exercise Info */}
           <div className="flex min-w-0 flex-1 flex-col">
-            <h3 className="truncate md:text-sm lg:text-sm text-xl font-black uppercase tracking-wider text-white sm:text-base">
+            <h3 className="truncate md:text-[16px] lg:text-[16px] text-xl font-bold font-oswald uppercase tracking-wider text-white sm:text-base">
               {card.name}
             </h3>
 
-            <p className="truncate text-md lg:text-sm md:text-sm font-medium text-gray-400 sm:text-sm">
+            <p className="truncate text-md lg:text-[12px] md:text-[12px] font-semibold font-inter text-gray-400 sm:text-sm">
               {card.equipment}
             </p>
 
@@ -51,7 +49,7 @@ export default function PlanCard({
 
               {/* Calories */}
               <div className="flex items-center gap-1">
-                <span className="shrink-0">🔥</span>
+                <FaFireFlameCurved className="shrink-0 text-[#ccff00]" />
                 <span>{card.caloriesBurned} kcal</span>
               </div>
 
@@ -83,19 +81,17 @@ export default function PlanCard({
             <FiCheck className="shrink-0 text-sm font-bold" />
             <span>Mark as Done</span>
           </button> */}
-          <Markasdone cardid={card.id}/>
-          
-            {/* <button
+          <Markasdone cardid={card.id} />
+
+          {/* <button
               type="button"
               className="ml-auto flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-gray-400 transition hover:bg-white/5 hover:text-white sm:ml-0"
               
             >
               <RxCross2 />
             </button> */}
-            <Removecard cardid={card.id} />
-
+          <Removecard cardid={card.id} />
         </div>
-
       </div>
     </div>
   );

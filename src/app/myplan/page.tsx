@@ -9,33 +9,32 @@ import Fallback from "./planfallback";
 import PlanCard from "./plancard";
 
 const Planpage = () => {
-  
   const { planexercise, saveexercise } = useContext(ExerciseContext) as {
     planexercise: Icard[];
     saveexercise: Icard[];
   };
 
-
   const [activeTab, setActiveTab] = useState<"plan" | "saved">("plan");
 
-  const [sortBy, setSortBy] = useState<"Duration" | "Calories" | "Rating">("Duration");
+  const [sortBy, setSortBy] = useState<"Duration" | "Calories" | "Rating">(
+    "Duration",
+  );
 
-  const sortcards = (card:Icard[]) => {
+  const sortcards = (card: Icard[]) => {
     const sortedCards = [...card];
 
-    if(sortBy === "Duration"){
-      sortedCards.sort((a,b) => a.duration - b.duration);
-    }else if(sortBy === "Calories"){
-      sortedCards.sort((a,b) => a.caloriesBurned - b.caloriesBurned);
+    if (sortBy === "Duration") {
+      sortedCards.sort((a, b) => a.duration - b.duration);
+    } else if (sortBy === "Calories") {
+      sortedCards.sort((a, b) => a.caloriesBurned - b.caloriesBurned);
     }
-    if(sortBy === "Rating"){
-      sortedCards.sort((a,b) => b.rating - a.rating);
+    if (sortBy === "Rating") {
+      sortedCards.sort((a, b) => b.rating - a.rating);
     }
     return sortedCards;
-  }
+  };
   const sortedPlanCards = sortcards(planexercise);
   const sortedsavedCards = sortcards(saveexercise);
-
 
   const totalMinutes = (minutes: Icard[]) =>
     minutes.reduce(
@@ -56,11 +55,11 @@ const Planpage = () => {
       <div className="mx-auto flex max-w-6xl flex-col gap-8">
         {/* ================= TITLE ================= */}
         <div>
-          <h1 className="mb-1 text-3xl font-black uppercase tracking-wider sm:text-4xl">
+          <h1 className="mb-1 text-[24px] font-bold font-oswald uppercase tracking-wider sm:text-[30px]">
             My Plan
           </h1>
 
-          <p className="text-sm font-medium text-gray-400">
+          <p className="text-[14px] font-inter text-gray-400">
             Cap of five lifts for today. Finish them, then load more.
           </p>
         </div>
@@ -73,7 +72,7 @@ const Planpage = () => {
               Exercises
             </span>
 
-            <span className="mt-1 text-3xl font-black text-[#ccff00] sm:text-4xl">
+            <span className="mt-1 text-[24px] font-bold text-[#ccff00] font-oswald sm:text-[36px]">
               {/* (
                 `activeTab === "saved" && {planexercise.length}``
               ) */}
@@ -87,7 +86,7 @@ const Planpage = () => {
               Minutes
             </span>
 
-            <span className="mt-1 text-3xl font-black text-white sm:text-4xl">
+            <span className="mt-1 text-[24px] font-bold text-white sm:text-[36px] font-oswald">
               {activeTab === "plan"
                 ? totalMinutes(planexercise)
                 : totalMinutes(saveexercise)}
@@ -100,7 +99,7 @@ const Planpage = () => {
               Calories
             </span>
 
-            <span className="mt-1 text-3xl font-black text-white sm:text-4xl">
+            <span className="mt-1 text-[24px] font-bold text-white sm:text-[36px] font-oswald">
               {activeTab === "plan"
                 ? totalCalories(planexercise)
                 : totalCalories(saveexercise)}
@@ -115,7 +114,7 @@ const Planpage = () => {
             {/* Today's Plan */}
             <button
               onClick={() => setActiveTab("plan")}
-              className={`tab rounded-xl px-5 text-xs font-bold uppercase transition ${
+              className={`tab rounded-xl px-5 text-xs font-inter font-bold uppercase transition ${
                 activeTab === "plan"
                   ? "bg-[#1f2430] text-white shadow-lg"
                   : "text-gray-400 hover:text-white"
@@ -143,7 +142,9 @@ const Planpage = () => {
 
             <select
               value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as "Duration" | "Calories" | "Rating")}
+              onChange={(e) =>
+                setSortBy(e.target.value as "Duration" | "Calories" | "Rating")
+              }
               className="select rounded-xl border w-80 border-white/10 bg-[#161922] px-4 text-md font-medium text-white outline-none hover:bg-[#1f2430]"
             >
               <option value="Duration">Duration</option>

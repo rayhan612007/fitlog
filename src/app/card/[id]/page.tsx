@@ -12,7 +12,7 @@ const Cardfetching = async (id: string): Promise<Icard> => {
     `https://api.abcz.workers.dev/api/fitlog/${id}`,
     {
       cache: "no-store",
-    }
+    },
   );
 
   if (!response.ok) {
@@ -48,7 +48,7 @@ const Detailspage = async ({ params }: Icarddetailsprops) => {
             src={card.image}
             alt={card.name}
             fill
-            sizes="(max-width: 1024px) 100vw, 50vw"
+            sizes="(max-width: 1024px) [588px], [735px]"
             className="object-cover"
             priority
           />
@@ -58,11 +58,11 @@ const Detailspage = async ({ params }: Icarddetailsprops) => {
         <div className="flex flex-col gap-6">
           {/* Title & Description */}
           <div>
-            <h1 className="mb-2 text-3xl font-semibold uppercase tracking-wider sm:text-4xl">
+            <h1 className="mb-2 text-[36px] font-bold font-oswald uppercase tracking-wider sm:text-[36px]">
               {card.name}
             </h1>
 
-            <p className="text-md leading-relaxed text-gray-400 sm:text-base">
+            <p className="text-[16px] font-inter leading-relaxed text-gray-400 sm:text-base">
               {card.description}
             </p>
           </div>
@@ -72,7 +72,7 @@ const Detailspage = async ({ params }: Icarddetailsprops) => {
             {card.muscleGroups?.map((tag, index) => (
               <span
                 key={index}
-                className="rounded-xl bg-[#ccff00] px-5 py-1 text-xs font-semibold uppercase tracking-wide text-black"
+                className="rounded-xl bg-[#ccff00] px-5 py-1 text-xs font-inter font-semibold uppercase tracking-wide text-black"
               >
                 {tag}
               </span>
@@ -80,7 +80,7 @@ const Detailspage = async ({ params }: Icarddetailsprops) => {
           </div>
 
           {/* Details Metadata Panel */}
-          <div className="flex flex-col gap-4 rounded-2xl border border-white/5 bg-[#161922] p-5 text-sm shadow-xl">
+          <div className="flex flex-col gap-4 rounded-2xl border font-inter border-white/5 bg-[#161922] p-5 text-sm shadow-xl">
             {/* Equipment */}
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
               <span className="text-xs uppercase tracking-wider text-gray-400">
@@ -158,11 +158,11 @@ const Detailspage = async ({ params }: Icarddetailsprops) => {
           {/* Instructions */}
           {card.instructions && card.instructions.length > 0 && (
             <div className="flex flex-col gap-2">
-              <h3 className="text-2xl font-bold uppercase tracking-widest text-white">
+              <h3 className="text-[16px] font-inter font-extrabold uppercase tracking-widest text-white">
                 Instructions
               </h3>
 
-              <ol className="list-inside list-decimal space-y-1.5 text-md font-medium text-gray-300">
+              <ol className="list-inside list-decimal space-y-1.5 text-[14px] font-inter font-medium text-gray-300">
                 {card.instructions.map((step, index) => (
                   <li key={index}>{step}</li>
                 ))}
@@ -171,7 +171,7 @@ const Detailspage = async ({ params }: Icarddetailsprops) => {
           )}
 
           {/* Action Buttons */}
-          <div className="flex flex-col gap-3 pt-4 sm:flex-row">
+          <div className="flex flex-col gap-3 font-inter font-medium text-[14px] pt-4 sm:flex-row">
             <Addtodayplanbtn card={card} />
             <Saveforlaterbtn card={card} />
           </div>

@@ -17,7 +17,7 @@ const Addtodayplanbtn = ({card}:{card:Icard}) => {
 
     return (
         <div>
-            <button onClick={()=>handleplan()} className="btn bg-[#ccff00] hover:bg-[#b3e600] text-black font-bold border-none flex-1 rounded-xl"
+            <button onClick={()=>handleplan()} className="btn bg-[#ccff00] font-inter font-medium text-[14px] hover:bg-[#b3e600] text-black border-none flex-1 rounded-xl"
             >
               <FiCalendar className="text-base" /> Add to today&apos;s plan
             </button>

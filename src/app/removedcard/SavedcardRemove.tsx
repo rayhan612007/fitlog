@@ -5,19 +5,19 @@ import { RxCross2 } from "react-icons/rx";
 
 import { ExerciseContext } from "../Context/ExerciseContext";
 import { Icard } from "../type/cardtype";
+import { toast } from "react-toastify";
 
 const SavedcardRemove = ({ cardid }: { cardid: number }) => {
-  const {saveexercise, setSavedexercise} = useContext(
-    ExerciseContext
-  ) as {
+  const { saveexercise, setSavedexercise } = useContext(ExerciseContext) as {
     saveexercise: Icard[];
     setSavedexercise: Dispatch<SetStateAction<Icard[]>>;
   };
 
   const handleremove = () => {
     setSavedexercise((previous) =>
-      previous.filter((card) => card.id !== cardid)
+      previous.filter((card) => card.id !== cardid),
     );
+    toast.success("Removed from Saved");
   };
 
   return (

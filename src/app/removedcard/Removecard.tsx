@@ -5,19 +5,19 @@ import { RxCross2 } from "react-icons/rx";
 
 import { ExerciseContext } from "../Context/ExerciseContext";
 import { Icard } from "../type/cardtype";
+import { toast } from "react-toastify";
 
 const Removecard = ({ cardid }: { cardid: number }) => {
-  const { planexercise, setPlanexercise } = useContext(
-    ExerciseContext
-  ) as {
+  const { planexercise, setPlanexercise } = useContext(ExerciseContext) as {
     planexercise: Icard[];
     setPlanexercise: Dispatch<SetStateAction<Icard[]>>;
   };
 
   const handleremove = () => {
     setPlanexercise((previous) =>
-      previous.filter((card) => card.id !== cardid)
+      previous.filter((card) => card.id !== cardid),
     );
+    toast.success("Removed from Today's Plan");
   };
 
   return (
