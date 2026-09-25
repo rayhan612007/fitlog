@@ -1,14 +1,34 @@
-'use client'
-import React, { createContext, useState } from "react";
+"use client";
 
+import React, {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useState,
+} from "react";
 
-export const ExerciseContext = createContext({});
+import { Icard } from "../type/cardtype";
 
-const ExerciseContextProvider = ({children}: {children: React.ReactNode}) => {
-  const [planexercise, setPlanexercise] = useState([]);
-  const [saveexercise, setSavedexercise] = useState([]);
+interface ExerciseContextType {
+  planexercise: Icard[];
+  setPlanexercise: Dispatch<SetStateAction<Icard[]>>;
+  saveexercise: Icard[];
+  setSavedexercise: Dispatch<SetStateAction<Icard[]>>;
+}
 
-  const shareddata = {
+export const ExerciseContext = createContext<ExerciseContextType>(
+  {} as ExerciseContextType,
+);
+
+const ExerciseContextProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const [planexercise, setPlanexercise] = useState<Icard[]>([]);
+  const [saveexercise, setSavedexercise] = useState<Icard[]>([]);
+
+  const shareddata: ExerciseContextType = {
     planexercise,
     setPlanexercise,
     saveexercise,
