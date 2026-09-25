@@ -75,7 +75,7 @@ const Navbar = () => {
               </Link>
             </li>
 
-            {/* Saved */}
+            {/* Saved
             <li>
               <Link
                 href="/myplan"
@@ -85,7 +85,7 @@ const Navbar = () => {
               >
                 Saved
               </Link>
-            </li>
+            </li> */}
           </ul>
         </div>
 
