@@ -1,22 +1,23 @@
 # FitLog
 
-A sleek, dark-themed, no-nonsense web application designed as a personal gym companion. FitLog allows users to explore a library of exercises targeting various muscle groups, organize workouts into a daily fitness plan, and track estimated times and calorie burns.
+**FitLog** is a streamlined, dark-themed web application engineered as an efficient personal workout planner and gym companion. Designed with a performance-first aesthetic, FitLog enables users to browse a curated exercise library, assemble customized daily training plans, track workout metrics, and save routines seamlessly.
 
 ---
 
-## 🛠️ Technologies Used
+## 🛠️ Tech Stack & Dependencies
 
-* **Frontend Framework:** Next.js / React
-* **Styling & UI:** Tailwind CSS & daisyUI
-* **Icons & Notifications:** React Icons & React-Toastify
-* **Deployment:** Vercel
+* **Core Framework:** [Next.js](https://nextjs.org/) / [React](https://react.dev/)
+* **Styling & UI:** [Tailwind CSS](https://tailwindcss.com/) & [daisyUI](https://daisyui.com/)
+* **Icons:** [React Icons](https://react-icons.github.io/react-icons/)
+* **Notifications:** [React-Toastify](https://fkhadra.github.io/react-toastify/introduction/)
+* **Deployment & Hosting:** [Vercel](https://vercel.com/)
 
 ---
 
 ## ✨ Key Features
 
-1. **Comprehensive Workout Library:** Access a curated library of key exercises (covering Chest, Back, Legs, Core, Shoulders, and Arms) detailed with required equipment, estimated duration, and calorie expenditure.
-2. **Interactive Plan Builder:** Effortlessly add lifts and workouts to a personal daily training plan to structure workouts before hitting the gym.
-3. **Saved Workouts & Favorites:** Bookmark and save favorite exercises for quick access and efficient session management.
-4. **Calorie & Time Tracking:** Automatically aggregates estimated duration (minutes) and energy burned (kcal) for selected routines.
-5. **Dark & Responsive UI:** Designed with an immersive, high-contrast dark aesthetic optimized for seamless use on desktop and mobile viewports.
+1. **Curated Workout Library:** Explores detailed exercises across major muscle groups—including chest, back, legs, core, shoulders, and arms—complete with target equipment, estimated duration, and calorie burn metrics.
+2. **Dynamic Plan Builder:** Allows users to interactively construct and structure daily training sessions prior to workouts.
+3. **Favorites & Saved Routines:** Enables fast bookmarking and easy access to frequently performed exercises.
+4. **Aggregate Metric Tracking:** Automatically calculates and displays total estimated training time (minutes) and energy expenditure (kcal) for custom plans.
+5. **Interactive UI & Real-Time Alerts:** Delivers immediate feedback via toast notifications and responsive UI components tailored for both mobile and desktop viewports.
