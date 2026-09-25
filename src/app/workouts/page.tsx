@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Icard } from "../type/cardtype";
 import Card from "./card";
 
-
 const Cardfetching = async (): Promise<Icard[]> => {
   const data = await fetch("https://api.abcz.workers.dev/api/fitlog");
   if (!data.ok) {
@@ -56,12 +55,13 @@ const Workoutpage = async () => {
           <h5
             className="
               mb-3
-              text-[10px]
+              text-[11px]
               font-bold
               uppercase
               tracking-wide
               text-[#b6ff00]
               sm:text-xs
+              font-inter
             "
           >
             Workout Library
@@ -70,16 +70,15 @@ const Workoutpage = async () => {
           {/* Main Heading */}
           <h1
             className="
-              max-w-2xl
-              text-4xl
-              font-black
+              max-w-md
+              text-[60px]
               uppercase
-              leading-[0.95]
+              leading-15
               tracking-tight
+              font-bold
               text-white
               sm:text-5xl
-              md:text-4xl
-              lg:text-5xl
+              font-oswald
             "
           >
             Train With Intent. Log Every Set.
@@ -89,8 +88,9 @@ const Workoutpage = async () => {
           <p
             className="
               mt-4
-              max-w-md
-              text-sm
+              font-inter
+              max-w-[490px]
+              text-[16px]
               leading-6
               text-gray-400
               sm:text-base
@@ -112,8 +112,9 @@ const Workoutpage = async () => {
               bg-[#b6ff00]
               px-5
               py-2.5
-              text-xs
+              text-[12px]
               font-bold
+              font-inter
               uppercase
               text-black
               transition
@@ -143,8 +144,8 @@ const Workoutpage = async () => {
           <Image
             src="/banner.png"
             alt="Workout illustration"
-            width={400}
-            height={400}
+            width={334}
+            height={334}
             priority
             className="
               h-auto
@@ -162,16 +163,19 @@ const Workoutpage = async () => {
       <div className="min-h-screen py-10 px-4">
         {/* Title & Subtitle */}
         <div className="container mb-8 mx-auto">
-          <h2 className="uppercase text-white text-2xl font-black tracking-wider">
+          <h2 className="uppercase text-white text-[30px] font-bold font-oswald tracking-wider">
             The library
           </h2>
-          <p className="text-gray-400 text-sm mt-1">
+          <p className="text-gray-400 text-[14px] font-inter mt-1">
             Twelve lifts covering every major muscle group.
           </p>
         </div>
 
         {/* Card Section Grid */}
-        <div id="library" className="scroll-mt-25 mx-auto container grid w-full grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+        <div
+          id="library"
+          className="scroll-mt-25 mx-auto container grid w-full grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3"
+        >
           {carddata.map((card) => (
             <Card key={card.id} card={card} />
           ))}

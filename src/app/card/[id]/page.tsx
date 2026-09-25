@@ -2,62 +2,67 @@ import Addtodayplanbtn from "@/app/component/Addtodayplanbtn";
 import Saveforlaterbtn from "@/app/component/Saveforlaterbtn";
 import { Icard } from "@/app/type/cardtype";
 import Image from "next/image";
-import React from "react";
-
 
 interface Icarddetailsprops {
   params: Promise<{ id: string }>;
 }
 
-const Cardfetching = async (): Promise<Icard[]> => {
-  const data = await fetch("https://api.abcz.workers.dev/api/fitlog");
-  if (!data.ok) {
+const Cardfetching = async (id: string): Promise<Icard> => {
+  const response = await fetch(
+    `https://api.abcz.workers.dev/api/fitlog/${id}`,
+    {
+      cache: "no-store",
+    }
+  );
+
+  if (!response.ok) {
     throw new Error("Failed to fetch workout data");
   }
-  const response: Icard[] = await data.json();
-  return response;
+
+  const data: Icard = await response.json();
+
+  return data;
 };
 
 const Detailspage = async ({ params }: Icarddetailsprops) => {
   const { id } = await params;
-  const carddata = await Cardfetching();
-  const card = carddata.find((c: Icard) => String(c.id) === String(id),) as Icard;
-  
 
-  // Handle case when workout is not found
+  // Fetch the specific workout using the ID
+  const card = await Cardfetching(id);
+
+  // Handle workout not found
   if (!card) {
     return (
-      <div className="min-h-screen bg-[#0b0e14] flex items-center justify-center text-white">
+      <div className="flex min-h-screen items-center justify-center bg-[#0b0e14] text-white">
         <h1 className="text-2xl font-bold">Workout not found</h1>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0b0e14] text-white py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-        
+    <div className="min-h-screen bg-[#0b0e14] px-4 py-12 text-white sm:px-6 lg:px-8">
+      <div className="mx-auto grid max-w-6xl grid-cols-1 items-start gap-10 lg:grid-cols-2">
         {/* Left Column: Image */}
-        <div className="relative w-full h-100 sm:h-125 lg:h-200 rounded-3xl overflow-hidden shadow-2xl border border-white/5">
+        <div className="relative h-100 w-full overflow-hidden rounded-3xl border border-white/5 shadow-2xl sm:h-125 lg:h-200">
           <Image
             src={card.image}
             alt={card.name}
             fill
-            sizes="fill"
+            sizes="(max-width: 1024px) 100vw, 50vw"
             className="object-cover"
             priority
           />
         </div>
 
-        {/* Right Column: Details & Info */}
+        {/* Right Column */}
         <div className="flex flex-col gap-6">
-          
           {/* Title & Description */}
           <div>
-            <h1 className="text-3xl sm:text-4xl font-semibold uppercase tracking-wider mb-2">
+            <h1 className="mb-2 text-3xl font-semibold uppercase tracking-wider sm:text-4xl">
               {card.name}
             </h1>
-            <p className="text-gray-400 text-md sm:text-base leading-relaxed">
+
+            <p className="text-md leading-relaxed text-gray-400 sm:text-base">
               {card.description}
             </p>
           </div>
@@ -75,59 +80,102 @@ const Detailspage = async ({ params }: Icarddetailsprops) => {
           </div>
 
           {/* Details Metadata Panel */}
-          <div className="bg-[#161922] rounded-2xl border border-white/5 p-5 flex flex-col gap-4 text-sm shadow-xl">
-            <div className="flex justify-between items-center pb-3 border-b border-white/5">
-              <span className="text-gray-400 uppercase text-xs tracking-wider">Equipment</span>
-              <span className="font-medium text-gray-200">{card.equipment}</span>
+          <div className="flex flex-col gap-4 rounded-2xl border border-white/5 bg-[#161922] p-5 text-sm shadow-xl">
+            {/* Equipment */}
+            <div className="flex items-center justify-between border-b border-white/5 pb-3">
+              <span className="text-xs uppercase tracking-wider text-gray-400">
+                Equipment
+              </span>
+
+              <span className="font-medium text-gray-200">
+                {card.equipment}
+              </span>
             </div>
-            <div className="flex justify-between items-center pb-3 border-b border-white/5">
-              <span className="text-gray-400 uppercase text-xs tracking-wider">Difficulty</span>
-              <span className="font-medium text-gray-200">{card.difficulty}</span>
+
+            {/* Difficulty */}
+            <div className="flex items-center justify-between border-b border-white/5 pb-3">
+              <span className="text-xs uppercase tracking-wider text-gray-400">
+                Difficulty
+              </span>
+
+              <span className="font-medium text-gray-200">
+                {card.difficulty}
+              </span>
             </div>
-            <div className="flex justify-between items-center pb-3 border-b border-white/5">
-              <span className="text-gray-400 uppercase text-xs tracking-wider">Sets</span>
+
+            {/* Sets */}
+            <div className="flex items-center justify-between border-b border-white/5 pb-3">
+              <span className="text-xs uppercase tracking-wider text-gray-400">
+                Sets
+              </span>
+
               <span className="font-medium text-gray-200">{card.sets}</span>
             </div>
-            <div className="flex justify-between items-center pb-3 border-b border-white/5">
-              <span className="text-gray-400 uppercase text-xs tracking-wider">Reps</span>
+
+            {/* Reps */}
+            <div className="flex items-center justify-between border-b border-white/5 pb-3">
+              <span className="text-xs uppercase tracking-wider text-gray-400">
+                Reps
+              </span>
+
               <span className="font-medium text-gray-200">{card.reps}</span>
             </div>
-            <div className="flex justify-between items-center pb-3 border-b border-white/5">
-              <span className="text-gray-400 uppercase text-xs tracking-wider">Duration</span>
-              <span className="font-medium text-gray-200">{card.duration} min</span>
+
+            {/* Duration */}
+            <div className="flex items-center justify-between border-b border-white/5 pb-3">
+              <span className="text-xs uppercase tracking-wider text-gray-400">
+                Duration
+              </span>
+
+              <span className="font-medium text-gray-200">
+                {card.duration} min
+              </span>
             </div>
-            <div className="flex justify-between items-center pb-3 border-b border-white/5">
-              <span className="text-gray-400 uppercase text-xs tracking-wider">Calories</span>
-              <span className="font-medium text-gray-200">{card.caloriesBurned} kcal</span>
+
+            {/* Calories */}
+            <div className="flex items-center justify-between border-b border-white/5 pb-3">
+              <span className="text-xs uppercase tracking-wider text-gray-400">
+                Calories
+              </span>
+
+              <span className="font-medium text-gray-200">
+                {card.caloriesBurned} kcal
+              </span>
             </div>
-            <div className="flex justify-between items-center">
-              <span className="text-gray-400 uppercase text-xs tracking-wider">Rating</span>
-              <span className="font-medium text-gray-200">{card.rating} / 5</span>
+
+            {/* Rating */}
+            <div className="flex items-center justify-between">
+              <span className="text-xs uppercase tracking-wider text-gray-400">
+                Rating
+              </span>
+
+              <span className="font-medium text-gray-200">
+                {card.rating} / 5
+              </span>
             </div>
           </div>
 
-          {/* Instructions Section (Mapped dynamically from json array) */}
+          {/* Instructions */}
           {card.instructions && card.instructions.length > 0 && (
             <div className="flex flex-col gap-2">
               <h3 className="text-2xl font-bold uppercase tracking-widest text-white">
                 Instructions
               </h3>
-              <ol className="list-decimal list-inside space-y-1.5 text-md text-gray-300 font-medium">
-                {card.instructions.map((step, idx) => (
-                  <li key={idx}>{step}</li>
+
+              <ol className="list-inside list-decimal space-y-1.5 text-md font-medium text-gray-300">
+                {card.instructions.map((step, index) => (
+                  <li key={index}>{step}</li>
                 ))}
               </ol>
             </div>
           )}
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 pt-4">
-            <Addtodayplanbtn card = {card}/>
-            <Saveforlaterbtn card = {card}/>
+          <div className="flex flex-col gap-3 pt-4 sm:flex-row">
+            <Addtodayplanbtn card={card} />
+            <Saveforlaterbtn card={card} />
           </div>
-
         </div>
-
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="w-full border-t border-[#202126] bg-[#0b0c0e]">
+    <footer className="w-full border-t min-h-[100px]  border-[#202126] bg-[#0b0c0e]">
       <div
         className="
           mx-auto
@@ -62,10 +62,10 @@ const Footer = () => {
           className="
             max-w-full
             text-center
-            text-xs
+            text-[12px]
             leading-6
             text-gray-500
-
+            font-inter
             sm:max-w-none
             sm:text-right
             sm:text-sm

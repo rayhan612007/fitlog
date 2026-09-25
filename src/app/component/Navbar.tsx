@@ -11,11 +11,11 @@ const Navbar = () => {
 
   const isWorkouts = pathname === "/";
   const isMyPlan = pathname === "/myplan";
-  const {planexercise} = useContext(ExerciseContext);
-  const {saveexercise} = useContext(ExerciseContext);
+  const { planexercise } = useContext(ExerciseContext);
+  const { saveexercise } = useContext(ExerciseContext);
 
   return (
-    <div className="navbar sticky top-0 z-50 min-h-20 bg-[#0d0e10] px-4 sm:px-6 lg:px-8">
+    <div className="navbar sticky top-0 z-50 min-h-[81] bg-[#0d0e10] px-4 sm:px-6 lg:px-8">
       {/* ================= LEFT ================= */}
       <div className="navbar-start">
         {/* Mobile Menu */}
@@ -53,7 +53,7 @@ const Navbar = () => {
                 href="/"
                 className={
                   isWorkouts
-                    ? "rounded-full bg-[#17250c] font-semibold text-[#b6ff00]"
+                    ? "rounded-full bg-[#17250c] font-semibold font-inter text-[#b6ff00]"
                     : "text-gray-400 hover:text-white"
                 }
               >
@@ -67,7 +67,7 @@ const Navbar = () => {
                 href="/myplan"
                 className={
                   isMyPlan
-                    ? "rounded-full bg-[#17250c] font-semibold text-[#ccff00]"
+                    ? "rounded-full bg-[#17250c] font-semibold font-inter font-semibold text-[#ccff00]"
                     : "text-gray-400 hover:text-white"
                 }
               >
@@ -80,7 +80,7 @@ const Navbar = () => {
               <Link
                 href="/myplan"
                 className={
-                 "text-gray-400 hover:text-white"
+                  "text-gray-400 font-inter font-semibold text-[12px] hover:text-white"
                 }
               >
                 Saved
@@ -99,7 +99,7 @@ const Navbar = () => {
             className="h-8 w-8 sm:h-9 sm:w-9"
           />
 
-          <h1 className="text-xl font-bold uppercase text-white sm:text-2xl">
+          <h1 className="text-[18px] uppercase font-oswald font-extrabold text-white sm:text-2xl">
             Fitlog
           </h1>
         </Link>
@@ -156,7 +156,8 @@ const Navbar = () => {
           {/* Saved */}
           <Link
             href="/myplan"
-            className={"flex items-center gap-1.5 text-sm transition sm:gap-2 sm:text-base text-gray-400 hover:text-white"
+            className={
+              "flex items-center gap-1.5 text-sm transition sm:gap-2 sm:text-base text-gray-400 hover:text-white"
             }
           >
             <span>Saved</span>
