@@ -24,7 +24,7 @@ export default function PlanCard({ card }: PlanCardProps) {
               src={card.image}
               alt={card.name}
               fill
-              sizes="(max-width: 640px)[ 80px], [144px]"
+              sizes="(max-width: 640px)80px, 144px"
               className="object-cover"
             />
           </div>
@@ -72,24 +72,8 @@ export default function PlanCard({ card }: PlanCardProps) {
             View Details
           </Link>
 
-          {/* Mark as Done */}
-          {/* <button
-            type="button"
-            onClick={() => onMarkDone?.(card.id)}
-            className="btn btn-sm flex  md:flex-1 lg:flex-none items-center justify-center gap-1.5 rounded-xl border-none bg-[#ccff00] px-3 text-xs font-bold normal-case text-black hover:bg-[#b3e600] sm:flex-none sm:px-4"
-          >
-            <FiCheck className="shrink-0 text-sm font-bold" />
-            <span>Mark as Done</span>
-          </button> */}
           <Markasdone cardid={card.id} />
 
-          {/* <button
-              type="button"
-              className="ml-auto flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-gray-400 transition hover:bg-white/5 hover:text-white sm:ml-0"
-              
-            >
-              <RxCross2 />
-            </button> */}
           <Removecard cardid={card.id} />
         </div>
       </div>

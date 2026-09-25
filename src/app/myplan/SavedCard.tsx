@@ -23,7 +23,7 @@ const SavedCard = ({ card }: SavedCardProps) => {
               src={card.image}
               alt={card.name}
               fill
-              sizes="(max-width: 640px)[ 80px], [144px]"
+              sizes="(max-width: 640px) 80px, 144px"
               className="object-cover"
             />
           </div>
