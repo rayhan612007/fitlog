@@ -2,7 +2,7 @@ import Addtodayplanbtn from "@/app/component/Addtodayplanbtn";
 import Saveforlaterbtn from "@/app/component/Saveforlaterbtn";
 import { Icard } from "@/app/type/cardtype";
 import Image from "next/image";
-
+import { notFound } from "next/navigation"
 interface Icarddetailsprops {
   params: Promise<{ id: string }>;
 }
@@ -14,10 +14,8 @@ const Cardfetching = async (id: string): Promise<Icard> => {
       cache: "no-store",
     },
   );
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch workout data");
-  }
+  if (response.status === 404) notFound();
+  if (!response.ok) throw new Error("Failed to fetch workout data");
 
   const data: Icard = await response.json();
 

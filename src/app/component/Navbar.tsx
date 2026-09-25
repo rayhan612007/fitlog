@@ -74,18 +74,6 @@ const Navbar = () => {
                 My Plan
               </Link>
             </li>
-
-            {/* Saved
-            <li>
-              <Link
-                href="/myplan"
-                className={
-                  "text-gray-400 font-inter font-semibold text-[12px] hover:text-white"
-                }
-              >
-                Saved
-              </Link>
-            </li> */}
           </ul>
         </div>
 

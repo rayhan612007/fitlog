@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Icard } from "../type/cardtype";
 import Card from "./card";
+import { FiArrowRight } from "react-icons/fi";
 
 const Cardfetching = async (): Promise<Icard[]> => {
   const data = await fetch("https://api.abcz.workers.dev/api/fitlog");
@@ -125,6 +126,7 @@ const Workoutpage = async () => {
             "
           >
             Browse Workouts
+            <FiArrowRight />
           </Link>
         </div>
 
