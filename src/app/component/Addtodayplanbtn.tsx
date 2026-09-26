@@ -7,9 +7,14 @@ import { toast } from "react-toastify";
 import { Icard } from "../type/cardtype";
 import { ExerciseContext } from "../Context/ExerciseContext";
 
-interface AddtodayplanbtnProps {
-  card: Icard;
-}
+const Addtodayplanbtn = ({ card }: { card: Icard }) => {
+  const { planexercise, setPlanexercise } = useContext(ExerciseContext) as {
+    planexercise: Icard[];
+    setPlanexercise: React.Dispatch<React.SetStateAction<Icard[]>>;
+  };
+  const handleplan = () => {
+    const alreadyAdded = planexercise.find(
+      (exercise) => exercise.id === card.id,
 
 const Addtodayplanbtn = ({ card }: AddtodayplanbtnProps) => {
   const { planexercise, setPlanexercise } = useContext(ExerciseContext);
@@ -27,24 +32,23 @@ const Addtodayplanbtn = ({ card }: AddtodayplanbtnProps) => {
 
     // Maximum 5 exercises
     if (planexercise.length >= 5) {
-      toast.error("Today's plan is full — finish these first!");
-      return;
+        toast.error("Today's plan is full _ finish these first!");
+    } else {
+        setPlanexercise([...planexercise, card]);
+        toast.success("Added to today's plan");
     }
 
-    // Add exercise to today's plan
-    setPlanexercise((previousPlan) => [...previousPlan, card]);
-
-    toast.success("Added to today's plan");
   };
 
   return (
-    <button
-      onClick={handlePlan}
-      className="btn flex-1 rounded-xl border-none bg-[#ccff00] font-inter text-[14px] font-medium text-black hover:bg-[#b3e600]"
-    >
-      <FiCalendar className="text-base" />
-      Add to today&apos;s plan
-    </button>
+    <div>
+      <button
+        onClick={() => handleplan()}
+        className="btn bg-[#ccff00] font-inter font-medium text-[14px] hover:bg-[#b3e600] text-black border-none flex-1 rounded-xl"
+      >
+        <FiCalendar className="text-base" /> Add to today&apos;s plan
+      </button>
+    </div>
   );
 };
 
