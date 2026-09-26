@@ -6,7 +6,7 @@ import Card from "./card";
 import { FiArrowRight } from "react-icons/fi";
 
 const Cardfetching = async (): Promise<Icard[]> => {
-  const data = await fetch("https://api.abcz.workers.dev/api/fitlog");
+  const data = await fetch("https://api.api-store.workers.dev/api/fitlog");
   if (!data.ok) {
     throw new Error("Failed to fetch workout data");
   }
