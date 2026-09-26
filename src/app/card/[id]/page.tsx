@@ -9,11 +9,7 @@ interface Icarddetailsprops {
 
 const Cardfetching = async (id: string): Promise<Icard> => {
   const response = await fetch(
-    `https://api.abcz.workers.dev/api/fitlog/${id}`,
-    {
-      cache: "no-store",
-    },
-  );
+    `https://api.abcz.workers.dev/api/fitlog/${id}`);
   if (response.status === 404) notFound();
   if (!response.ok) throw new Error("Failed to fetch workout data");
 
