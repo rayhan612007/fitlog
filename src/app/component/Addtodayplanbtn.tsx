@@ -15,14 +15,6 @@ const Addtodayplanbtn = ({ card }: { card: Icard }) => {
   const handleplan = () => {
     const alreadyAdded = planexercise.find(
       (exercise) => exercise.id === card.id,
-
-const Addtodayplanbtn = ({ card }: AddtodayplanbtnProps) => {
-  const { planexercise, setPlanexercise } = useContext(ExerciseContext);
-
-  const handlePlan = () => {
-    // Check if the exercise is already in today's plan
-    const alreadyAdded = planexercise.some(
-      (exercise) => exercise.id === card.id
     );
 
     if (alreadyAdded) {
