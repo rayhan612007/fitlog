@@ -8,7 +8,7 @@ interface Icarddetailsprops {
   params: Promise<{ id: string }>;
 }
 
-const Cardfetching = async (id: string): Promise<Icard> => {
+const Cardfetching = async (id: string): Promise<Icard | null> => {
   try {
     const response = await fetch(
       `https://api.abcz.workers.dev/api/fitlog/${id}`,
@@ -17,23 +17,14 @@ const Cardfetching = async (id: string): Promise<Icard> => {
       }
     );
 
-    if (response.status === 404) {
-      notFound();
+    if (response.status === 404 || !response.ok) {
+      return null; // Return null instead of crashing the whole server component
     }
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch workout data: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
-    // If it's already a Next.js notFound error, rethrow it
-    if (error && typeof error === 'object' && 'digest' in error) {
-      throw error;
-    }
-    console.error("Error fetching card details:", error);
-    notFound(); // Fallback to 404 page instead of crashing the server component
+    console.error("Fetch error:", error);
+    return null;
   }
 };
 
@@ -41,21 +32,16 @@ const Detailspage = async ({ params }: Icarddetailsprops) => {
   const { id } = await params;
   const card = await Cardfetching(id);
 
-  // Handle workout not found
+  // If the card doesn't exist or the fetch failed, trigger Next.js 404 page cleanly
   if (!card) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0b0e14] text-white">
-        <h1 className="text-2xl font-bold">Workout not found</h1>
-      </div>
-    );
+    notFound();
   }
-
 
   return (
     <main className="min-h-screen bg-[#0b0e14] px-4 py-12 text-white sm:px-6 lg:px-8">
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-start gap-10 lg:grid-cols-2">
         {/* Left Column - Image */}
-        <div className="relative h-100 w-full overflow-hidden rounded-3xl border border-white/5 shadow-2xl sm:h-125 lg:h-200">
+        <div className="relative h-[400px] w-full overflow-hidden rounded-3xl border border-white/5 shadow-2xl sm:h-[500px] lg:h-[750px]">
           {card.image ? (
             <Image
               src={card.image}
@@ -76,10 +62,10 @@ const Detailspage = async ({ params }: Icarddetailsprops) => {
         <div className="flex flex-col gap-6">
           <div>
             <h1 className="mb-2 font-oswald text-[36px] font-bold uppercase tracking-wider">
-              {card.name}
+              {card.name || "Untitled Workout"}
             </h1>
             <p className="font-inter text-[16px] leading-relaxed text-gray-400">
-              {card.description}
+              {card.description || "No description provided."}
             </p>
           </div>
 
@@ -97,7 +83,7 @@ const Detailspage = async ({ params }: Icarddetailsprops) => {
             </div>
           )}
 
-          {/* Details Metadata Panel */}
+          {/* Metadata panel */}
           <div className="flex flex-col gap-4 rounded-2xl border border-white/5 bg-[#161922] p-5 font-inter text-sm shadow-xl">
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
               <span className="text-xs uppercase tracking-wider text-gray-400">Equipment</span>
@@ -109,11 +95,11 @@ const Detailspage = async ({ params }: Icarddetailsprops) => {
             </div>
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
               <span className="text-xs uppercase tracking-wider text-gray-400">Sets</span>
-              <span className="font-medium text-gray-200">{card.sets || "N/A"}</span>
+              <span className="font-medium text-gray-200">{card.sets ?? "N/A"}</span>
             </div>
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
               <span className="text-xs uppercase tracking-wider text-gray-400">Reps</span>
-              <span className="font-medium text-gray-200">{card.reps || "N/A"}</span>
+              <span className="font-medium text-gray-200">{card.reps ?? "N/A"}</span>
             </div>
             <div className="flex items-center justify-between border-b border-white/5 pb-3">
               <span className="text-xs uppercase tracking-wider text-gray-400">Duration</span>
@@ -128,20 +114,6 @@ const Detailspage = async ({ params }: Icarddetailsprops) => {
               <span className="font-medium text-gray-200">{card.rating ? `${card.rating} / 5` : "N/A"}</span>
             </div>
           </div>
-
-          {/* Instructions */}
-          {card.instructions && card.instructions.length > 0 && (
-            <div className="flex flex-col gap-2">
-              <h3 className="font-inter text-[16px] font-extrabold uppercase tracking-widest text-white">
-                Instructions
-              </h3>
-              <ol className="list-inside list-decimal space-y-1.5 font-inter text-[14px] font-medium text-gray-300">
-                {card.instructions.map((step, index) => (
-                  <li key={`${step}-${index}`}>{step}</li>
-                ))}
-              </ol>
-            </div>
-          )}
 
           {/* Action Buttons */}
           <div className="flex flex-col gap-3 pt-4 font-inter text-[14px] font-medium sm:flex-row">
