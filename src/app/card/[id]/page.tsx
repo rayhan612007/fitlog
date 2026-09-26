@@ -11,7 +11,7 @@ interface Icarddetailsprops {
 const Cardfetching = async (id: string): Promise<Icard | null> => {
   try {
     const response = await fetch(
-      `https://api.abcz.workers.dev/api/fitlog/${id}`,
+      `https://api.api-store.workers.dev/api/fitlog/${id}`,
       {
         cache: "no-store",
       }
