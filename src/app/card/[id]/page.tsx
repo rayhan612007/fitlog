@@ -24,15 +24,6 @@ const Detailspage = async ({ params }: Icarddetailsprops) => {
   // Fetch the specific workout using the ID
   const card = await Cardfetching(id);
 
-  // Handle workout not found
-  if (!card) {
-    return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0b0e14] text-white">
-        <h1 className="text-2xl font-bold">Workout not found</h1>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-[#0b0e14] px-4 py-12 text-white sm:px-6 lg:px-8">
       <div className="mx-auto grid max-w-6xl grid-cols-1 items-start gap-10 lg:grid-cols-2">
